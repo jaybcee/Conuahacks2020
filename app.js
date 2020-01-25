@@ -20,9 +20,16 @@ admin.initializeApp({
     databaseURL: "https://conuhacksradio.firebaseio.com"
   })
 
-// var db = admin.database
+
+var ref = admin.database().ref("modes");
 
 
-app.get('/', (req, res) => res.send("Hola!") && console.log(admin.database().ref('/modes/')))
+ref.on("value", function(snapshot) {
+    console.log(snapshot.val());
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+
+
 
 app.listen(PORT, () => console.log(`Lesssa get dis breaaaad on ${PORT}!!!!`))
